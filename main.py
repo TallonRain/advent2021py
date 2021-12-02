@@ -1,15 +1,18 @@
-file = open('input', 'r')
-sonardata = []
-for i in file:
-    sonardata.append(int(i))
+horizontal_position = 0
+depth = 0
+with open('input') as f:
+    navigation_instructions = f.readlines()
 
-n = 0
-count = 0
-evaluation = 0
-while n < len(sonardata) - 2:
-    previous = evaluation
-    evaluation = sonardata[n] + sonardata[n + 1] + sonardata[n + 2]
-    if previous < evaluation and previous != 0:
-        count += 1
-    n += 1
-print("count:", count)
+for i in navigation_instructions:
+    if 'forward' in i:
+        number = i[-2]
+        horizontal_position += int(number)
+    if 'down' in i:
+        number = i[-2]
+        depth += int(number)
+    if 'up' in i:
+        number = i[-2]
+        depth -= int(number)
+
+final_result = horizontal_position * depth
+print(final_result)
